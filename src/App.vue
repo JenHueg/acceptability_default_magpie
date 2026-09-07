@@ -1,6 +1,5 @@
 # App.vue
 
-
 <!-- ====================================
 TRANSPARENCY
 This code was developed using the help of AI. The model used: 

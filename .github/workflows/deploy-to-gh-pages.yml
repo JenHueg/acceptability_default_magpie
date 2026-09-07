@@ -1,3 +1,8 @@
+# This file was costumized with the help of ChatGPT -5.6 Luna Model (2026), a large language model developed by openAI. Previous version 
+# lead to building error when pushing to GitHub. The following was changed: 
+# The npm cache from the GitHub Actions workflow was removed to ensure that dependencies were installed fresh 
+# instead of potentially using corrupted cached files. 
+# `npm install` changed to `npm ci`, which performs a clean and reproducible installation based on the `package-lock.json`.
 
 name: Build and Deploy
 on:
