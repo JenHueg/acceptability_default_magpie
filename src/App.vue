@@ -195,7 +195,7 @@ export default {
       // ==================================================
 
       const response =
-        await fetch('/stimuli.csv')
+        await fetch('./stimuli.csv')
 
       const csvText =
         await response.text()
