@@ -681,14 +681,31 @@ export default {
   
 
     try {
+      console.log(
+      'MAGPIE SOCKET:',
+      this.$magpie.socket
+    )
+
+    console.log(
+      'MAGPIE SOCKET STATE:',
+      this.$magpie.socket?.state
+    )
+
+    console.log(
+      'MAGPIE SUBMISSION URL:',
+      this.$magpie.submissionUrl
+    )
+
       console.log('VOR SUBMIT')
       const submitResult = this.$magpie.submit()
+
       console.log('SUBMIT RESULT:', submitResult)
       console.log('SUBMIT RESULT TYPE:', typeof submitResult)
 
   await submitResult
 
   console.log('NACH SUBMIT')
+  
       this.page = 'end'
     } catch (error) {
         console.error(
