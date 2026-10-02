@@ -697,6 +697,11 @@ export default {
     )
 
       console.log('VOR SUBMIT')
+      
+      console.log(
+      'CONFIG SERVER URL:',
+      magpieConfig.serverUrl
+      )
       const submitResult = this.$magpie.submit()
 
       console.log('SUBMIT RESULT:', submitResult)
@@ -705,7 +710,7 @@ export default {
   await submitResult
 
   console.log('NACH SUBMIT')
-  
+
       this.page = 'end'
     } catch (error) {
         console.error(
