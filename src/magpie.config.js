@@ -1,6 +1,6 @@
 export default {
   experimentId: '16',
-  serverUrl: 'https://ling-ex.gigalixirapp.com/api/submit_experiment/16',
+  serverUrl: 'https://ling-ex.gigalixirapp.com///api//submit_experiment//',
   socketUrl: 'wss://ling-ex.gigalixirapp.com/socket',
   // this will be used in prolific mode
   completionUrl: 'https://...',
