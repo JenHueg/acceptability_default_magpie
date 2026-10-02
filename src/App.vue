@@ -611,7 +611,7 @@ export default {
     // DEMOGRAPHICS SAVE
     // ==================================================
 
-    saveDemographics(data) {
+    async saveDemographics(data) {
 
       console.log(
         'SAVE DEMOGRAPHICS'
@@ -625,156 +625,228 @@ export default {
       this.demographics =
         data
 
-      // ==================================================
-      // CSV HEADER
-      // ==================================================
+    // =====================================================
+    // ADD TRIAL DATA TO MAGPIE 
+    // =====================================================
 
-      const header = [
-        'participantID',
-        'item',
-        'list',
-        'condition',
-        'statement',
-        'denial',
-        'rating',
-        'reactionTimeMs',
-        'reactionTime',
-        'question',
-        'answer_A',
-        'answer_B',
-        'correct_answer',
-        'comprehensionAnswer',
-        'comprehensionCorrect',
-        'comprehensionReactionTimeMs',
-        'comprehensionReactionTime',
-        'dialectChoice',
-        'federalState',
-        'age',
-        'gender',
-        'genderSelfDescription',
-        'nativeLanguage',
-        'experimentDuration'
+    this.responses.forEach(
+      response => {
+        this.$magpie.addTrialData(
+          response
+        )
+      }
+    )
 
-      ]
+    // ====================================================
+    // ADD DEMOGRAPHICS AND EXPERIMENT DATA
+    // =====================================================
 
-      // ==================================================
-      // CSV ROWS
-      // ==================================================
+    this.$magpie.addExpData({
 
-      const rows =
+      participantID:
+        this.participantID,
 
-        this.responses.map(
-          r => [
-            r.participantID,
-            r.item,
-            r.list,
-            r.condition,
-            r.statement,
-            r.denial,
-            r.rating,
-            r.reactionTimeMs,
-            r.reactionTime,
-            r.question,
-            r.answer_A,
-            r.answer_B,
-            r.correct_answer,
-            r.comprehensionAnswer,
-            r.comprehensionCorrect,
-            r.comprehensionReactionTimeMs,
-            r.comprehensionReactionTime,
-            this.demographics.dialectChoice || "NA",
-            this.demographics.federalState || "NA",
-            this.demographics.age || "NA",
-            this.demographics.gender || "NA",
-            this.demographics.genderSelfDescription || "NA",
-            this.demographics.nativeLanguage || "NA",
-            this.experimentDuration
+      selectedList:
+        this.selectedList,
 
-          ]
+      dialectChoice:
+        this.demographics.dialectChoice || 'NA',
+
+      federalState:
+        this.demographics.federalState || 'NA',
+
+      age:
+        this.demographics.age || 'NA',
+
+      gender:
+        this.demographics.gender || 'NA',
+
+      genderSelfDescription:
+        this.demographics.genderSelfDescription || 'NA',
+
+      nativeLanguage:
+        this.demographics.nativeLanguage || 'NA',
+
+      experimentDuration:
+        this.experimentDuration
+
+    })
+
+    // ===================================================
+    // SEND DATA TO MAGPIE SERVER 
+    // ===================================================
+
+    try {
+
+        await this.$magpie.submit()
+
+        console.log(
+          'DATEN ERFOLGREICH AN MAGPIE SERVER GESENDET'
         )
 
-      // ==================================================
-      // CSV ESCAPE
-      // ==================================================
+        this.page =
+          'end'
 
-      function csvEscape(value) {
+      } catch (error) {
 
-        const text =
-          String(
-            value ?? ''
-          )
-
-        return (
-
-          '"' +
-
-          text.replace(
-            /"/g,
-            '""'
-          ) +
-
-          '"'
-
+        console.error(
+          'FEHLER BEIM SENDEN DER DATEN:',
+          error
         )
 
       }
 
       // ==================================================
-      // CSV CREATE
+      // CSV HEADER - as comment because only needed for creating csv locally
       // ==================================================
 
-      const csv = [
+    //  const header = [
+    //    'participantID',
+    //    'item',
+    //    'list',
+    //    'condition',
+    //    'statement',
+    //    'denial',
+    //    'rating',
+    //    'reactionTimeMs',
+    //    'reactionTime',
+    //    'question',
+    //    'answer_A',
+    //    'answer_B',
+    //    'correct_answer',
+    //    'comprehensionAnswer',
+    //    'comprehensionCorrect',
+    //    'comprehensionReactionTimeMs',
+    //    'comprehensionReactionTime',
+    //    'dialectChoice',
+    //    'federalState',
+    //    'age',
+    //    'gender',
+    //    'genderSelfDescription',
+    //    'nativeLanguage',
+    //    'experimentDuration'
 
-        header
-          .map(csvEscape)
-          .join(','),
+    //  ]
 
-        ...rows.map(
+      // ==================================================
+      // CSV ROWS - as comment because only needed to create csv locally
+      // ==================================================
 
-          row =>
-            row
-              .map(csvEscape)
-              .join(',')
+    //  const rows =
 
-        )
+    //    this.responses.map(
+    //      r => [
+    //        r.participantID,
+    //        r.item,
+    //        r.list,
+    //        r.condition,
+    //        r.statement,
+    //        r.denial,
+    //        r.rating,
+    //        r.reactionTimeMs,
+    //        r.reactionTime,
+    //        r.question,
+    //        r.answer_A,
+    //        r.answer_B,
+    //        r.correct_answer,
+    //        r.comprehensionAnswer,
+    //        r.comprehensionCorrect,
+    //        r.comprehensionReactionTimeMs,
+    //        r.comprehensionReactionTime,
+    //        this.demographics.dialectChoice || "NA",
+    //        this.demographics.federalState || "NA",
+    //        this.demographics.age || "NA",
+    //        this.demographics.gender || "NA",
+    //        this.demographics.genderSelfDescription || "NA",
+    //        this.demographics.nativeLanguage || "NA",
+    //        this.experimentDuration
 
-      ].join('\n')
+    //      ]
+    //    )
+
+      // ==================================================
+      // CSV ESCAPE - as comment because only needed to create csv locally
+      // ==================================================
+
+    //  function csvEscape(value) {
+
+    //    const text =
+    //      String(
+    //        value ?? ''
+    //      )
+
+    //    return (
+
+    //      '"' +
+
+    //      text.replace(
+    //        /"/g,
+    //        '""'
+    //      ) +
+
+    //      '"'
+
+    //    )
+
+    //  }
+
+      // ==================================================
+      // CSV CREATE - as comment because only needed to create csv locally
+      // ==================================================
+
+    //  const csv = [
+
+    //    header
+    //      .map(csvEscape)
+    //      .join(','),
+
+    //    ...rows.map(
+
+    //      row =>
+    //        row
+    //          .map(csvEscape)
+    //          .join(',')
+
+    //    )
+
+    //  ].join('\n')
 
 
       // ==================================================
-      // CSV DOWNLOAD
+      // CSV DOWNLOAD LOCALLY (!!) 
+      // As comment because this is only for local test, otherwise magpie serve app is used to store result
       // ==================================================
 
-      const blob =
-        new Blob(
-          [csv],
-          {
-            type:
-              'text/csv;charset=utf-8;'
-          }
-        )
+    //  const blob =
+    //    new Blob(
+    //      [csv],
+    //     {
+    //        type:
+    //          'text/csv;charset=utf-8;'
+    //     }
+     //   )
 
-      const url =
-        URL.createObjectURL(
-          blob
-        )
+    //  const url =
+    //    URL.createObjectURL(
+    //      blob
+     //   )
 
-      const a =
-        document.createElement(
-          'a'
-        )
+    //  const a =
+    //    document.createElement(
+    //      'a'
+    //    )
 
-      a.href =
-        url
+    //  a.href =
+    //    url
 
-      a.download =
-        'responses.csv'
+    //  a.download =
+    //    'responses.csv'
 
-      a.click()
+    //  a.click()
 
-      URL.revokeObjectURL(
-        url
-      )
+    //  URL.revokeObjectURL(
+    //    url
+    //  )
 
       // ==================================================
       // END
