@@ -679,15 +679,15 @@ export default {
     // ===================================================
 
     try {
+      console.log('VOR SUBMIT')
       await this.$magpie.submit()
-      console.log('DATEN ERFOLGREICH AN MAGPIE SERVER GESENDET')
-      console.log('SCHRITT 2: Vor EndPage')
+      console.log('NACH SUBMIT')
       this.page = 'end'
     } catch (error) {
-      console.error(
-        'FEHLER BEIM SENDEN DER DATEN:',
+        console.error(
+          'FEHLER BEIM SENDEN DER DATEN:',
         error
-      )
+        )
     }
 
       // ==================================================
