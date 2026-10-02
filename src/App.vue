@@ -622,6 +622,8 @@ export default {
         this.responses.length
       )
 
+       console.log('SCHRITT 1: Nach den ersten Logs')
+
       this.demographics =
         data
 
@@ -677,24 +679,16 @@ export default {
     // ===================================================
 
     try {
-
-        await this.$magpie.submit()
-
-        console.log(
-          'DATEN ERFOLGREICH AN MAGPIE SERVER GESENDET'
-        )
-
-        this.page =
-          'end'
-
-      } catch (error) {
-
-        console.error(
-          'FEHLER BEIM SENDEN DER DATEN:',
-          error
-        )
-
-      }
+      await this.$magpie.submit()
+      console.log('DATEN ERFOLGREICH AN MAGPIE SERVER GESENDET')
+      console.log('SCHRITT 2: Vor EndPage')
+      this.page = 'end'
+    } catch (error) {
+      console.error(
+        'FEHLER BEIM SENDEN DER DATEN:',
+        error
+      )
+    }
 
       // ==================================================
       // CSV HEADER - as comment because only needed for creating csv locally
@@ -852,8 +846,8 @@ export default {
       // END
       // ==================================================
 
-      this.page =
-        'end'
+      // this.page =
+      //  'end'
 
     }
 
