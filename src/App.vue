@@ -93,6 +93,7 @@ PLEASE ADD HERE OTHER MODELS THAT ARE USED WHEN DEVELPING THIS CODE FURTHER:
 <script>
 
 import Papa from 'papaparse'
+import magpieConfig from './magpie.config.js'
 import StartPage from './components/StartPage.vue'
 import InstructionPage from './components/InstructionPage.vue'
 import TrialPage from './components/TrialPage.vue'
@@ -697,7 +698,7 @@ export default {
     )
 
       console.log('VOR SUBMIT')
-      
+
       console.log(
       'CONFIG SERVER URL:',
       magpieConfig.serverUrl
