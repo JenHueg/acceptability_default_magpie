@@ -678,24 +678,17 @@ export default {
     // SEND DATA TO MAGPIE SERVER 
     // ===================================================
 
-    console.log('MAGPIE OBJECT:', this.$magpie)
-    console.log('MAGPIE KEYS:', Object.keys(this.$magpie))
-    console.log(
-      'MAGPIE PROTOTYPE:',
-      Object.getOwnPropertyNames(
-        Object.getPrototypeOf(this.$magpie)
-      )
-    )
-
-    console.log('MAGPIE SUBMIT:', this.$magpie.submit)
-    console.log('MAGPIE SUBMIT TYPE:', typeof this.$magpie.submit)
-    console.log('MAGPIE ADD TRIAL:', this.$magpie.addTrialData)
-    console.log('MAGPIE ADD EXP:', this.$magpie.addExpData)
+  
 
     try {
       console.log('VOR SUBMIT')
-      await this.$magpie.submit()
-      console.log('NACH SUBMIT')
+      const submitResult = this.$magpie.submit()
+      console.log('SUBMIT RESULT:', submitResult)
+      console.log('SUBMIT RESULT TYPE:', typeof submitResult)
+
+  await submitResult
+
+  console.log('NACH SUBMIT')
       this.page = 'end'
     } catch (error) {
         console.error(
