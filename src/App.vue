@@ -678,6 +678,10 @@ export default {
     // SEND DATA TO MAGPIE SERVER 
     // ===================================================
 
+  console.log('MAGPIE OBJECT:', this.$magpie)
+  console.log('MAGPIE SERVER:', this.$magpie.serverUrl)
+  console.log('MAGPIE MODE:', this.$magpie.mode)
+
     try {
       console.log('VOR SUBMIT')
       await this.$magpie.submit()
