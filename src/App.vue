@@ -694,70 +694,18 @@ export default {
       this.$magpie.submit.toString()
     )
 
-   try {
-      console.log('VOR DIREKTEM HTTP SUBMIT')
+  try {
+    console.log('VOR MAGPIE SUBMIT')
+    await this.$magpie.submit()
+    console.log('MAGPIE SUBMIT ERFOLGREICH')
+    this.page = 'end'
+  } catch (error) {
+    console.error(
+      'FEHLER BEIM MAGPIE SUBMIT:',
+      error
+    )
+  }
 
-      const data = this.$magpie.getAllData()
-
-      console.log('DATEN ERSTELLT:', data)
-
-      console.log('SERVER URL:', magpieConfig.serverUrl)
-      console.log('EXPERIMENT ID:', magpieConfig.experimentId)
-
-      const submissionUrl =
-        magpieConfig.serverUrl +
-        (magpieConfig.serverUrl.endsWith('/') ? '' : '/') +
-        'api/submit_experiment/' +
-        magpieConfig.experimentId
-
-      console.log(
-        'SUBMISSION URL:',
-        submissionUrl
-      )
-
-      const response = await fetch(
-        submissionUrl,
-        {
-          method: 'POST',
-
-          mode: 'cors',
-
-          headers: {
-            'Content-Type': 'application/json'
-          },
-
-          body: JSON.stringify(data)
-        }
-      )
-
-      console.log(
-        'SERVER STATUS:',
-        response.status
-      )
-
-      if (!response.ok) {
-
-        const errorText =
-          await response.text()
-
-        throw new Error(
-          'Server sagt: ' + errorText
-        )
-      }
-
-      console.log(
-        'DATEN ERFOLGREICH GESENDET'
-      )
-
-      this.page = 'end'
-
-    } catch (error) {
-
-      console.error(
-        'FEHLER BEIM DIREKTEN HTTP SUBMIT:',
-        error
-      )
-}
 
       // ==================================================
       // CSV HEADER - as comment because only needed for creating csv locally
