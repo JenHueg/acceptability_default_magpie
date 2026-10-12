@@ -689,39 +689,31 @@ export default {
       typeof this.$magpie.submit
     )
 
+    
     try {
-        console.log('VOR MAGPIE SUBMIT')
+      console.log('VOR MAGPIE SUBMIT')
 
-        const submitResult = this.$magpie.submit()
+      const submitResult = this.$magpie.submit()
 
-        console.log('SUBMIT RÜCKGABEWERT:', submitResult)
+      console.log('SUBMIT RÜCKGABE:', submitResult)
+      console.log(
+        'PROMISE ERKANNT:',
+        typeof submitResult.then === 'function'
+      )
 
-        console.log(
-                'RÜCKGABETYP:',
-                typeof submitResult
-              )
+      submitResult
+        .then(() => {
+          console.log('MAGPIE SUBMIT ERFOLGREICH')
+          this.page = 'end'
+        })
+        .catch(error => {
+          console.error('MAGPIE SUBMIT FEHLGESCHLAGEN:', error)
+        })
 
-              console.log(
-                'DANN-TYP:',
-                typeof submitResult?.then
-              )
+    } catch (error) {
+      console.error('FEHLER VOR ODER BEIM SUBMIT:', error)
+    }
 
-        if (submitResult && typeof submitResult.then === 'function') {
-          submitResult
-            .then(result => {
-              console.log('MAGPIE SUBMIT ERFOLGREICH:', result)
-              this.page = 'end'
-            })
-            .catch(error => {
-              console.error('FEHLER BEIM MAGPIE SUBMIT:', error)
-            })
-        } else {
-          console.log('SUBMIT IST NICHT ASYNCHRONISCH')
-        }
-
-      } catch (error) {
-        console.error('FEHLER BEIM AUFRUF VON SUBMIT:', error)
-      }
 
 
       // ==================================================
