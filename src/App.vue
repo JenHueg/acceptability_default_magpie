@@ -688,7 +688,6 @@ export default {
       'SUBMIT VERFÜGBAR:',
       typeof this.$magpie.submit
     )
-
     
     try {
       console.log('VOR MAGPIE SUBMIT')
