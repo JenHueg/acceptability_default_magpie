@@ -689,6 +689,11 @@ export default {
       typeof this.$magpie.submit
     )
 
+    console.log(
+      'SUBMIT-FUNKTION:',
+      this.$magpie.submit.toString()
+    )
+
    try {
       console.log('VOR DIREKTEM HTTP SUBMIT')
 
