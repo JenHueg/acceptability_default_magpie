@@ -696,6 +696,16 @@ export default {
 
         console.log('SUBMIT RÜCKGABEWERT:', submitResult)
 
+        console.log(
+                'RÜCKGABETYP:',
+                typeof submitResult
+              )
+
+              console.log(
+                'DANN-TYP:',
+                typeof submitResult?.then
+              )
+
         if (submitResult && typeof submitResult.then === 'function') {
           submitResult
             .then(result => {
