@@ -693,6 +693,16 @@ export default {
     try {
       console.log('VOR MAGPIE SUBMIT')
 
+        console.log(
+      'MAGPIE SUBMISSION URL:',
+      this.$magpie.submissionUrl
+      )
+
+      console.log(
+        'MAGPIE SOCKET STATE:',
+        this.$magpie.socket?.state
+      )
+
       const submitResult = this.$magpie.submit()
 
       console.log('SUBMIT RÜCKGABE:', submitResult)
