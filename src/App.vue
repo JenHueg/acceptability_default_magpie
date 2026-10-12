@@ -688,8 +688,14 @@ export default {
 
       console.log('DATEN ERSTELLT:', data)
 
+      console.log('SERVER URL:', magpieConfig.serverUrl)
+      console.log('EXPERIMENT ID:', magpieConfig.experimentId)
+
       const submissionUrl =
-        magpieConfig.serverUrl + this.$magpie.experimentId
+        magpieConfig.serverUrl +
+        (magpieConfig.serverUrl.endsWith('/') ? '' : '/') +
+        'api/submit_experiment/' +
+        magpieConfig.experimentId
 
       console.log(
         'SUBMISSION URL:',
