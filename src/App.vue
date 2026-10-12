@@ -679,7 +679,15 @@ export default {
     // SEND DATA TO MAGPIE SERVER 
     // ===================================================
 
-  
+    console.log(
+      'MAGPIE-METHODEN:',
+      Object.keys(this.$magpie)
+    )
+
+    console.log(
+      'SUBMIT VERFÜGBAR:',
+      typeof this.$magpie.submit
+    )
 
    try {
       console.log('VOR DIREKTEM HTTP SUBMIT')
