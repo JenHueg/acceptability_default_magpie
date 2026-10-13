@@ -4,6 +4,7 @@
 TRANSPARENCY
 This code was developed using the help of AI. The model used: 
 OpenAI.(2026). ChatGPT (GPT -5.6 Luna). [Large language model]. https.://chatgpt.com
+OpenAI.(2026). ChatGPT (GPT -6). [Large language model]. https.://chatgpt.com 
 
 PLEASE ADD HERE OTHER MODELS THAT ARE USED WHEN DEVELPING THIS CODE FURTHER: 
 
