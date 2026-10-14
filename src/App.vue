@@ -164,11 +164,42 @@ export default {
     }
   },
 
+  // ===================================
+  // PRESSING ESCAPE TO CANCEL THE EXPERIMENT
+  // ===================================
+
+  mounted() {
+  window.addEventListener('keydown', this.handleEscapeKey)
+  },
+
+  beforeDestroy() {
+  window.removeEventListener('keydown', this.handleEscapeKey)
+  },
+
   // ==================================================
   // METHODS
   // ==================================================
 
   methods: {
+
+    // =============================================
+    // RETURN TO PROLIFIC AFTER PRESSING ESCAPE
+    // =============================================
+
+    handleEscapeKey(event) {
+      if (event.key !== 'Escape') {
+      return
+      }
+      event.preventDefault()
+      const confirmAbort = window.confirm(
+      'Möchtest du das Experiment wirklich abbrechen?'
+      )
+      if (confirmAbort) {
+      window.location.replace(
+        'URL FOR PROLIFIC AFTER PRESSING ESC'
+      )
+      }
+    },
 
     // ==================================================
     // START EXPERIMENT
