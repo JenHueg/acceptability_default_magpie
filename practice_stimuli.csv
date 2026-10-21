@@ -1,0 +1,7 @@
+﻿list;item;condition;statement;denial;question;answer_A;answer_B;correct_answer
+practice;P1;practice;Ich bin Practice-Item 1. ;Antwort.;Frage mit Feedback. ;Ja. ;Nein.;A
+practice;P2;practice;Ich bin Practice-Item 2.;Antwort.;Frage mit Feedback. ;Ja. ;Nein.;A
+practice;P3;practice;Ich bin Practice-Item 3.;Antwort.;Frage mit Feedback. ;Ja. ;Nein.;B
+practice;P4;practice;Ich bin Practice-Item 4.;Antwort.;Frage mit Feedback. ;Ja. ;Nein.;B
+practice;P5;practice;Ich bin Practice-Item 5. ;Antwort.;Frage mit Feedback. ;Ja. ;Nein.;A
+practice;P6;practice;Ich bin Practice-Item 6. ;Antwort.;Frage mit Feedback. ;Ja. ;Nein.;A
