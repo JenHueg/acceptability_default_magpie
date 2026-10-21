@@ -19,7 +19,16 @@ PLEASE ADD HERE OTHER MODELS THAT ARE USED WHEN DEVELPING THIS CODE FURTHER:
          ================================================== -->
     <StartPage
       v-if="page === 'start'"
-      @next="page = 'instructions'"
+      @next="showConsentPage"
+    />
+
+    <!-- ==================================================
+        CONSENT PAGE
+        =================================================== -->
+
+    <ConsentPage
+      v-if="page === 'consent'"
+      @next="continueAfterConsent"
     />
 
     <!-- ==================================================
@@ -28,8 +37,33 @@ PLEASE ADD HERE OTHER MODELS THAT ARE USED WHEN DEVELPING THIS CODE FURTHER:
 
     <InstructionPage
       v-if="page === 'instructions'"
-      @next="startExperiment"
+      @next="startPractice"
     />
+
+    <!-- ==================================================
+        PRACTICE 
+        =================================================== -->
+
+    <TrialPage
+      key="practice"
+      v-if="page === 'practice'"
+      :stimuli="practiceItems"
+      :totalTrials="practiceItems.length"
+      :startIndex="0"
+      :participantID="participantID"
+      :comprehensionTrials="comprehensionTrialsPractice"
+      :showComprehensionFeedback="true"
+      @finished="finishPractice"
+    />
+
+    <!-- ===================================================
+      SHOWING THAT MAIN EXPERIMENT IS STARTING
+      =================================================== -->
+
+      <ExperimentIntroPage
+      v-if="page === 'experimentIntro'"
+      @next="startExperiment"
+      />
 
     <!-- ==================================================
          BLOCK 1
@@ -96,7 +130,9 @@ PLEASE ADD HERE OTHER MODELS THAT ARE USED WHEN DEVELPING THIS CODE FURTHER:
 import Papa from 'papaparse'
 import magpieConfig from './magpie.config.js'
 import StartPage from './components/StartPage.vue'
+import ConsentPage from './components/ConsentPage.vue'
 import InstructionPage from './components/InstructionPage.vue'
+import ExperimentIntroPage from './components/ExperimentIntroPage.vue'
 import TrialPage from './components/TrialPage.vue'
 import BreakPage from './components/BreakPage.vue'
 import DemographicsPage from './components/DemographicsPage.vue'
@@ -106,7 +142,9 @@ export default {
 
   components: {
     StartPage,
+    ConsentPage,
     InstructionPage,
+    ExperimentIntroPage,
     TrialPage,
     BreakPage,
     DemographicsPage,
@@ -121,6 +159,8 @@ export default {
   data() {
 
     return {
+      practiceItems: [],
+      comprehensionTrialsPractice: [2,3,5],
       page: 'start',
       block1: [],
       block2: [],
@@ -181,6 +221,73 @@ export default {
   // ==================================================
 
   methods: {
+
+    //======================================
+    // FOR CONSENT PAGE 
+    //======================================
+
+    showConsentPage() {
+    this.page = 'consent'
+    },
+
+    continueAfterConsent() {
+    this.page = 'instructions'
+    },
+
+    // =============================================
+    // STARTING PRACTICE TRIAL 
+    // ============================================= 
+
+    async startPractice() {
+      try {
+        const response = await fetch('./practice_stimuli.csv')
+
+        if (!response.ok) {
+          throw new Error('Übungs-CSV konnte nicht geladen werden.')
+        }
+
+        const csvText = await response.text()
+
+        const parsed = Papa.parse(csvText, {
+          header: true,
+          skipEmptyLines: true
+        })
+
+        if (parsed.errors.length > 0) {
+          console.error('Fehler beim Einlesen:', parsed.errors)
+        }
+
+        this.practiceItems = parsed.data.filter(
+          item =>
+            item.item &&
+            item.statement &&
+            item.denial
+        )
+
+        if (this.practiceItems.length !== 6) {
+          throw new Error(
+            `Es wurden ${this.practiceItems.length} statt 6 Übungsitems geladen.`
+          )
+        }
+
+        this.page = 'practice'
+
+      } catch (error) {
+        console.error('Fehler beim Laden der Übungsitems:', error)
+
+        alert(
+          'Die Übungsitems konnten nicht geladen werden. Bitte laden Sie die Seite neu.'
+        )
+      }
+    },
+
+    // ============================================
+    // GO TO MAIN EXPERIMENT AFTER PRACTICE 
+    // ===========================================
+
+    finishPractice() {
+    this.page = 'experimentIntro'
+    },
 
     // =============================================
     // RETURN TO PROLIFIC AFTER PRESSING ESCAPE
